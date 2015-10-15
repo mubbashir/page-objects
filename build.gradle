@@ -9,11 +9,18 @@ repositories {
 dependencies {
     compile "org.seleniumhq.selenium:selenium-java:2.48.2"
     compile "org.testng:testng:6.9.4"
+    compile "org.uncommons:reportng:1.1.4"
 }
 
 test {
-    useTestNG()
+    useTestNG() {
+    parallel 'classes'
+    threadCount 4
+
+    }
+    systemProperty "BROWSER", "chrome"
     maxParallelForks = 20
+
 }
 
 task includegroup1(type: Test) {
